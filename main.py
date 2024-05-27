@@ -1,8 +1,9 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-from euler import euler
-from graphics import graf
+# Importación de modulos requeridos para trabajar
+import numpy as np                #Trabajo con matrices
+import matplotlib.pyplot as plt   #Gráficas
+import pandas as pd               #Manejo de datos
+from euler import euler           #Método de Euler
+from graphics import graf         #Graficar salida de los métodos
 
 #Declaración de las ecuaciones diferenciales
 def f(i,w,theta):
@@ -15,6 +16,9 @@ def h(i,w,theta):
     return theta
 #Función principal
 def run():
+#Declaración de funciones y variables a trabajar
+
+#Métodos a utilizar
     f_euler, g_euler,h_euler,t_euler,i_euler=euler([0,3],None,0,0,0,f,g,h,0.5)
     
 #Escritura de los valores por el método de Euler
