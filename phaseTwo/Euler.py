@@ -20,12 +20,10 @@ def euler(dom,n,x_init,y_init,z_init,x,y,z,t,f1,f2,f3,h):
     x_values = []  #Aproximaciones
     y_values = []  #Aproximaciones
     z_values = []  #Aproximaciones 
-    iteration = [] #Iteraciones
 
 #Determinacion de pasos y diviciones
     if h is None:
-        h=(abs(dom[0]-dom[1]))/n
-        print(h)
+        h=float((abs(dom[0]-dom[1]))/n)
     elif n is None:
         n=int((abs(dom[0]- dom[1]))/h)
 
@@ -40,20 +38,19 @@ def euler(dom,n,x_init,y_init,z_init,x,y,z,t,f1,f2,f3,h):
     vector_fuction = sp.lambdify((x,y,z),[f1,f2,f3],modules="numpy")
     vector_bf = [0,0,0]
 #Algoritmo de Euler
-    for i in range(n+2):
+    for i in range(n+1):
     #Algoritmo de Euler
         vector_bf = np.array(vector_bg) + np.array(vector_fuction(*tuple(vector_bf)))*h
     #Se añaden los elementos x_begin y y_begin al array 
         t_values.append(t_begin)
-        x_values.append(vector_bg[0])
-        y_values.append(vector_bg[1])
-        z_values.append(vector_bg[2])
-        iteration.append(i)
-        print(z_values)
+        x_values.append(vector_bf[0])
+        y_values.append(vector_bf[1])
+        z_values.append(vector_bf[2])
 
     #verificacion y actualizacion en las variables:
         t_begin = t_begin + h
         vector_bg[0] = vector_bf[0]
         vector_bg[1] = vector_bf[1]
         vector_bg[2] = vector_bf[2]
-    return x_values, y_values,z_values, t_values, iteration
+        print(z_values)
+    return x_values, y_values,z_values, t_values
