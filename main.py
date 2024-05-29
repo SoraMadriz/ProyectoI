@@ -13,7 +13,7 @@ def g(i,w,theta):
     return (5/80)*i - (20/80)*w
 
 def h(i,w,theta):
-    return theta
+    return w
 #Función principal
 def run():
 #Declaración de funciones y variables a trabajar
@@ -29,7 +29,7 @@ def run():
         df_euler.to_excel(writer, sheet_name="Euler Method", index=False)
 
 #Grafica
-    graf(t_euler,f_euler,"Euler")
+    graf(t_euler,h_euler,"Euler")
 
 if __name__ == "__main__":
     run()
