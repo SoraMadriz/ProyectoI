@@ -1,4 +1,4 @@
-from scipy.integrate import solve_ivp
+from scipy.integrate import odeint
 import numpy as np
 import sympy as sp
 def isopy(f1,f2,f3,x,y,z,t):

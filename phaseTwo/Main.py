@@ -5,9 +5,8 @@ import pandas as pd               #Manejo de datos
 import sympy as sp                #Matemática simbólica
 from Euler import euler           #Metodo de Euler
 from Heun import heun             #Metodo de Heun
-from isode import isopy
+from RK4 import rungeKutta        #Metodo de RK4
 from graphics import graf         #Graficar salida de los métodos
-import scipy as scp
 
 def run():
 #Declaracion de constantes
@@ -32,9 +31,8 @@ def run():
 #Metodos a utilizar
     f_euler,g_euler,h_euler, t_euler=euler([0,3],None,0,0,0,i,w,theta,t,f,g,h,0.5)
     sol_heun, t_heun = heun([0,3],None,0,0,0,i,w,theta,t,f,g,h,0.5)
-    output=isopy(f,g,h,i,w,theta,t)
-    print(output)
-    
+    sol_rk4, t_rk4 = rungeKutta([0,3],None,0,0,0,i,w,theta,t,f,g,h,0.5)
+
 #Escritura en el archivo .xlsx
     #Declaración de los DataFrame
     df_euler=pd.DataFrame({"x":f_euler,"y":g_euler,"z":h_euler})
@@ -52,5 +50,10 @@ def run():
     graf(t_heun,[sublst[0] for sublst in sol_heun],"Heun",path,"Corriente vs Tiempo")
     graf(t_heun,[sublst[1] for sublst in sol_heun],"Heun",path,"Velocidad angular vs Tiempo")
     graf(t_heun,[sublst[2] for sublst in sol_heun],"Heun",path,"posición angular vs Tiempo")
+
+
+    graf(t_rk4,[sublst[0] for sublst in sol_rk4],"RK4",path,"Corriente vs Tiempo")
+    graf(t_rk4,[sublst[1] for sublst in sol_rk4],"RK4",path,"Corriente vs Tiempo")
+    graf(t_rk4,[sublst[2] for sublst in sol_rk4],"RK4",path,"Corriente vs Tiempo")
 if __name__ == "__main__":
     run()
