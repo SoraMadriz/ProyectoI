@@ -24,7 +24,6 @@ def run():
 #Escritura de los valores por el método de Euler
     df_euler=pd.DataFrame({"ITERACIONES":i_euler,"x":f_euler,"y":g_euler,"z":h_euler})
 
-#Escritura en el Excel
     with pd.ExcelWriter('salida.xlsx') as writer:
         df_euler.to_excel(writer, sheet_name="Euler Method", index=False)
 
