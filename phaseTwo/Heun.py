@@ -1,5 +1,6 @@
 #Dependencias del modulo
 import sympy as sp #Manejo de funciones
+import psutil      #Estado de la computadora
 #------------------------Entrada y salida del modulo----------------------------
 # Entrada: recorrido                           -->  (dom)
 #          número de divisiones del recorrido  -->  (n) 
@@ -16,7 +17,7 @@ def heun(dom,n,x_init,y_init,z_init,x,y,z,t,f1,f2,f3,h):
     y_values = []  #Soluciones, fila1=x, fila2=y, fila3=z
     t_values = []  #Valores del tiempo
 
-#Determinacion de pasos y diviciones
+#Determinacion de pasos o diviciones
     if h is None:
         h=(abs(dom[0]-dom[1]))/n
     elif n is None:
@@ -39,4 +40,7 @@ def heun(dom,n,x_init,y_init,z_init,x,y,z,t,f1,f2,f3,h):
         y_values.append([y1_sol,y2_sol,y3_sol])
         t=t+h
         t_values.append(t)
-    return y_values,t_values
+    #Estado de la computadora
+    cpu_usage = psutil.cpu_percent()
+    ram_usage = psutil.virtual_memory().percent
+    return y_values,t_values, [cpu_usage, ram_usage]

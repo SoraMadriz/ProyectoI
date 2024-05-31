@@ -1,6 +1,7 @@
 #Dependencias del modulo
 import numpy as np #Manejo de matrices
 import sympy as sp #Manejo de funciones
+import psutil      #Estado de la computadora
 #------------------------Entrada y salida del modulo----------------------------
 # Entrada: recorrido                           -->  (dom)
 #          número de divisiones del recorrido  -->  (n) 
@@ -43,14 +44,17 @@ def euler(dom,n,x_init,y_init,z_init,x,y,z,t,f1,f2,f3,h):
         vector_bf = np.array(vector_bg) + np.array(vector_fuction(*tuple(vector_bf)))*h
     #Se añaden los elementos x_begin y y_begin al array 
         t_values.append(t_begin)
-        x_values.append(vector_bf[0])
-        y_values.append(vector_bf[1])
-        z_values.append(vector_bf[2])
+        x_values.append(vector_bg[0])
+        y_values.append(vector_bg[1])
+        z_values.append(vector_bg[2])
 
     #verificacion y actualizacion en las variables:
         t_begin = t_begin + h
         vector_bg[0] = vector_bf[0]
         vector_bg[1] = vector_bf[1]
         vector_bg[2] = vector_bf[2]
-        print(z_values)
-    return x_values, y_values,z_values, t_values
+    #Estado de la PC
+    cpu_usage = psutil.cpu_percent()
+    ram_usage = psutil.virtual_memory().percent
+
+    return x_values, y_values,z_values, t_values,[cpu_usage,ram_usage]

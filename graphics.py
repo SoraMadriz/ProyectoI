@@ -6,6 +6,12 @@ def graf(axis1,axis2,method):
     ax.set_title("Function")
     ax.set_xlabel("x")
     ax.set_ylabel("y")
-    ax.plot(axis1,axis2, color="red", label=method)
+    if method == "Corriente vs Tiempo":
+        curveColors = "darkorange"
+    elif method =="Velocidad angular vs Tiempo":
+        curveColors = "darkorchid"
+    elif method =="Posición angular vs Tiempo":
+        curveColors = "dodgerblue"
+    ax.plot(axis1,axis2, color=curveColors, label=method)
     ax.legend(loc="upper right")
     plt.show()

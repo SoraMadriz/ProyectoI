@@ -1,6 +1,5 @@
 #Dependencias del modulo
 import matplotlib.pyplot as plt                # Función de gráficas
-import os                                      # Manejo del sistema
 #-----------------------Entrada y Salida del Modulo-----------------------------
 # Entrada: eje de las abscisas    -->  (axis1)
 #          eje de las ordenadas   -->  (axis2)
@@ -18,8 +17,16 @@ def graf(axis1,axis2,method,path,name):
     ax.set_xlabel("x")
     ax.set_ylabel("y")
 
+#Colores de las gráficas
+    if name == "Corriente vs Tiempo":
+        curveColors = "darkorange"
+    elif name =="Velocidad angular vs Tiempo":
+        curveColors = "darkorchid"
+    elif name =="Posición angular vs Tiempo":
+        curveColors = "dodgerblue"
+
 #Funciones a graficar y guardado
-    ax.plot(axis1,axis2, marker="o",color="red", label=method)
+    ax.plot(axis1,axis2, marker="o",color=curveColors, label=method)
     ax.legend(loc="upper right")
     plt.savefig(f'{path}/{name}.png')
     plt.show()
