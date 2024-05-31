@@ -6,15 +6,17 @@ import sympy as sp                   #Matemática simbólica
 from time import time                #Tiempo
 import psutil                        #Estado de la computadora
 from warnings  import filterwarnings #Manejos de mensajes
+from isode import isopy              #Subprocesos
 from Euler import euler              #Metodo de Euler
 from Heun import heun                #Metodo de Heun
 from RK4 import rungeKutta           #Metodo de RK4
 from graphics import graf            #Graficar salida de los métodos
+from sys import exit
 
 def run():
 #Declaracion de constantes
     #Constantes mecánicas
-    kb = 7; ki = 5; Jm = 80; bm = 20; Torque = 0
+    kb = 7; ki = 5; Jm = 80; bm = 20; Tl = 0
     #Constantes eléctricas
     Ra=10; Ea = 350; La = 100e-3
 
@@ -23,9 +25,12 @@ def run():
     #Corriente de armadura di(t)/dt
     f = sp.sympify(Ea/La - (Ra/La)*i - (kb/La)*w)
     #aceleracion angular del motor dw/dt
-    g = sp.sympify((ki/Jm)*i - (bm/Jm)*w - Torque/Jm)
+    g = sp.sympify((ki/Jm)*i - (bm/Jm)*w - Tl/Jm)
     #Velocidad angular del motor dtheta/dt
     h = sp.sympify(w)
+
+#Obtencion de la solucion teorica
+    isode_result, isode_time = isopy(Ra, Ea, La, kb, ki, Jm, bm, Tl)
 
 #Metodos a utilizar
     #Metodo de Euler
@@ -33,16 +38,21 @@ def run():
     f_euler,g_euler,h_euler, t_euler, cpu_euler = euler([0,3],None,0,0,0,i,w,theta,t,f,g,h,0.5)
     end = time()
     duration_euler = end - start
+
     #Metodo de Heun
     start = time()
     sol_heun, t_heun, cpu_heun = heun([0,3],None,0,0,0,i,w,theta,t,f,g,h,0.5)
     end = time()
     duration_heun = end - start
+
     #Metodo de RK4
     start = time()
     sol_rk4, t_rk4,cpu_rk4 = rungeKutta([0,3],None,0,0,0,i,w,theta,t,f,g,h,0.5)
     end = time()
     duration_rk4 = end - start
+
+#Calculo de errores
+    
 
 #Modulos para graficar
     #Metodo de Euler
