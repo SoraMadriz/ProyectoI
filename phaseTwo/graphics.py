@@ -29,4 +29,3 @@ def graf(axis1,axis2,method,path,name):
     ax.plot(axis1,axis2, marker="o",color=curveColors, label=method)
     ax.legend(loc="upper right")
     plt.savefig(f'{path}/{name}.png')
-    plt.show()

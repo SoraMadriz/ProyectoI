@@ -1,6 +1,7 @@
 #Dependencias del modulo
 import sympy as sp #Manejo de funciones
 import psutil      #Estado de la computadora
+import numpy as np #Manejo e matrices
 #------------------------Entrada y salida del modulo----------------------------
 # Entrada: recorrido                           -->  (dom)
 #          número de divisiones del recorrido  -->  (n) 
@@ -32,12 +33,15 @@ def heun(dom,n,x_init,y_init,z_init,x,y,z,t,f1,f2,f3,h):
 
 #Método de Heun
     for i in range(1,n+1):
-        k1 = function(*(y_values[i-1][0],y_values[i-1][1],y_values[i-1][2]))
-        k2 = function(*(y_values[i-1][0]+k1[0]*h,y_values[i-1][1]+k1[1]*h,y_values[i-1][2]+k1[2]*h))
+        #parte predictiva
+        k1 = np.array(function(*(y_values[i-1][0],y_values[i-1][1],y_values[i-1][2])))
+        k2 = np.array(function(*(y_values[i-1][0]+k1[0]*h,y_values[i-1][1]+k1[1]*h,y_values[i-1][2]+k1[2]*h)))
+        #parte correctiva
         y1_sol = y_values[i-1][0]+(k1[0]+k2[0])*(h/2)                      
         y2_sol = y_values[i-1][1]+(k1[1]+k2[1])*(h/2)
         y3_sol = y_values[i-1][2]+(k1[2]+k2[2])*(h/2)
         y_values.append([y1_sol,y2_sol,y3_sol])
+        #Actualizacion de variables
         t=t+h
         t_values.append(t)
     #Estado de la computadora

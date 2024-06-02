@@ -47,7 +47,6 @@ def euler(dom,n,x_init,y_init,z_init,x,y,z,t,f1,f2,f3,h):
         x_values.append(vector_bg[0])
         y_values.append(vector_bg[1])
         z_values.append(vector_bg[2])
-
     #verificacion y actualizacion en las variables:
         t_begin = t_begin + h
         vector_bg[0] = vector_bf[0]
